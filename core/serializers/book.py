@@ -9,8 +9,14 @@ class BookSeriazlizer(ModelSerializer):
         fields = '__all__'
 
 
-class BookListRetrieveSerializer(ModelSerializer):
+class BookRetrieveSerializer(ModelSerializer):
     class Meta:
         model = Book
         fields = '__all__'
         depth = 1
+
+
+class BookListSerializer(ModelSerializer):
+    class Meta:
+        model = Book
+        fields = ('id', 'title', 'price')

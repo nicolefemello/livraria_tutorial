@@ -1,7 +1,7 @@
 from rest_framework.viewsets import ModelViewSet
 
 from core.models import Book
-from core.serializers import BookSeriazlizer, BookListRetrieveSerializer
+from core.serializers import BookSeriazlizer, BookListSerializer, BookRetrieveSerializer
 
 
 class BookViewSet(ModelViewSet):
@@ -9,6 +9,8 @@ class BookViewSet(ModelViewSet):
     serializer_class = BookSeriazlizer
 
     def get_serializer_class(self):
-        if self.action in {'list', 'retrieve'}:
-            return BookListRetrieveSerializer
+        if self.action == 'list':
+            return BookListSerializer
+        elif self.action == 'retrieve':
+            return BookRetrieveSerializer
         return BookSeriazlizer
