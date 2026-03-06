@@ -6,9 +6,10 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils.translation import gettext_lazy as _
 
-from core import models
+from core.models import Author, Book, Category, Publisher, User
 
 
+@admin.register(User)
 class UserAdmin(BaseUserAdmin):
     """Define the admin pages for users."""
 
@@ -51,8 +52,37 @@ class UserAdmin(BaseUserAdmin):
     )
 
 
-admin.site.register(models.User, UserAdmin)
-admin.site.register(models.Category)
-admin.site.register(models.Publisher)
-admin.site.register(models.Author)
-admin.site.register(models.Book)
+@admin.register(Author)
+class AuthorAdmin(admin.ModelAdmin):
+    list_display = ('name', 'email')
+    search_fields = ('name', 'email')
+    list_filter = ('name',)
+    ordering = ('name', 'email')
+    list_per_page = 10
+
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('description',)
+    search_fields = ('description',)
+    list_filter = ('description',)
+    ordering = ('description',)
+    list_per_page = 10
+
+
+@admin.register(Publisher)
+class PublisherAdmin(admin.ModelAdmin):
+    list_display = ('name', 'site')
+    search_fields = ('name', 'site')
+    list_filter = ('name', 'site')
+    ordering = ('name', 'site')
+    list_per_page = 10
+
+
+@admin.register(Book)
+class BookAdmin(admin.ModelAdmin):
+    list_display = ('title', 'publisher', 'category')
+    search_fields = ('title', 'publisher__name', 'category__description')
+    list_filter = ('publisher', 'category')
+    ordering = ('title', 'publisher', 'category')
+    list_per_page = 25
