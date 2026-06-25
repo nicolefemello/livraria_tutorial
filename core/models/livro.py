@@ -23,6 +23,7 @@ class Livro(models.Model):
         blank=True,
         default=None,
     )
+    preco = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
 
     def __str__(self):
         return f'({self.id}) {self.titulo} ({self.quantidade})'
